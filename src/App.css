@@ -58,3 +58,15 @@
   text-align: left;
 }
 
+.form-button{
+  display: flex;
+  gap: 1rem;
+}
+
+.cancel-button{
+  background: red;
+}
+
+.submit-button{
+  background: green;
+}

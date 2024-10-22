@@ -56,16 +56,53 @@ const Inputs = [
     disabled: false,
     readonly: false,
     label: "Accept T&C",
-    value: false,
+    value: "accept_term",
   },
 ];
 
 function App() {
   const [inputs, setInputs] = useState(structuredClone(Inputs));
+
+  function onInputChange({ id, name, index, value, type, checked }) {
+    const oldInputs = structuredClone(inputs);
+    console.log(checked);
+    if (type === "checkbox") {
+      oldInputs[index].checked = checked;
+    } else {
+      oldInputs[index].value = value;
+    }
+
+    setInputs(oldInputs);
+  }
+
+  function onCancel() {
+    setInputs(Inputs);
+  }
+
+  function onSubmit() {
+    const params = {};
+
+    inputs.forEach((input) => {
+      if (input.type === "checkbox") {
+        if (input.checked) {
+          params[input.name] = input.value;
+        }
+      } else {
+        params[input.name] = input.value;
+      }
+    });
+    console.log(params);
+  }
+
   return (
     <fieldset>
       <legend>Sign-Up</legend>
-      <FormWrapper inputs={inputs} />
+      <FormWrapper
+        inputs={inputs}
+        onInputChange={onInputChange}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+      />
     </fieldset>
   );
 }

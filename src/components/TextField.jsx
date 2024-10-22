@@ -8,7 +8,13 @@ export default function TextField({
   error,
   disable,
   readonly,
+  index,
+  onChange,
 }) {
+  function handleChange(e) {
+    onChange({ id, name, type, index, value: e.target.value });
+  }
+
   return (
     <div className="input-box">
       <label htmlFor={id}>{label}</label>
@@ -20,6 +26,7 @@ export default function TextField({
         placeholder={placeholder}
         readOnly={readonly}
         disabled={disable}
+        onChange={handleChange}
       />
     </div>
   );
